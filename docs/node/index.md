@@ -4,13 +4,24 @@ lang: en-US
 ---
 ## Running locally
 
+### With Docker
+
+We are making available a simple Docker-based set up with Hyperledger Besu so you can try out locally Keccak mining.
+The local network has a very small fixed difficulty as well so you can easily produce blocks on your machine with CPU mining.
+
+`$> docker run -p 8545:8545 tmio/besu-keccak --rpc-http-enabled --rpc-http-api=admin,eth,debug,miner,net,txpool,priv,trace,web3 --rpc-http-cors-origins="all" --network=ecip1049_dev --miner-enabled --miner-coinbase=fe3b557e8fb62b89f4916b721be55ceb828dbd73`
+
 ### With Docker Compose
 
-You can [download this Docker Compose file](https://github.com/antsankov/astor-network/blob/master/docs/node/docker-compose.yml) and automate away the set up of a simple Besu with a CPU miner.
+You can [download this Docker Compose file](https://github.com/antsankov/astor-network/blob/master/docs/node/docker-compose.yml) and automate away the set up of a simple Besu with a bundled Python CPU miner. You can use the Python miner as a starting point for optimized mining approaches/hardware.
 
 Download the file and make sure Docker Compose is installed.
 
-In the directory where you downloaded the file, run:
+To run, make a new directory, and get the docker compose:
+
+`$> wget https://raw.githubusercontent.com/antsankov/astor-network/master/docs/node/docker-compose.yml` 
+
+and then run
 
 `$> docker-compose up`
 
@@ -18,20 +29,13 @@ It will run interactively the set up and collaboration of Besu with the CPU mine
 
 You can exit with Ctrl+C.
 
-### With Docker
-
-We are making available a simple Docker-based set up with Hyperledger Besu so you can try out locally Keccak mining.
-The local network has a very small fixed difficulty as well so you can easily produce blocks on your machine with CPU mining.
-
-`docker run -p 8545:8545 tmio/besu-keccak --rpc-http-enabled --rpc-http-api=admin,eth,debug,miner,net,txpool,priv,trace,web3 --rpc-http-cors-origins="all" --network=ecip1049_dev --miner-enabled --miner-coinbase=fe3b557e8fb62b89f4916b721be55ceb828dbd73`
-
 ## Mining locally
 
 If you would like to mine on the network, you will need to install a miner to connect to Besu (see below).
 
 You will need to enable Besu's stratum mining as well:
 
-1. `docker run -p 8545:8545 tmio/besu-keccak --rpc-http-enabled --rpc-http-api=admin,eth,debug,miner,net,txpool,priv,trace,web3 --rpc-http-cors-origins="all" --network=ecip1049_dev --miner-enabled --miner-coinbase=fe3b557e8fb62b89f4916b721be55ceb828dbd73
+1. `$> docker run -p 8545:8545 tmio/besu-keccak --rpc-http-enabled --rpc-http-api=admin,eth,debug,miner,net,txpool,priv,trace,web3 --rpc-http-cors-origins="all" --network=ecip1049_dev --miner-enabled --miner-coinbase=fe3b557e8fb62b89f4916b721be55ceb828dbd73
   --miner-stratum-enabled --miner-stratum-host=0.0.0.0`
 
 
@@ -48,9 +52,11 @@ You can import them into Metamask.
 
 Currently, we have only created a CPU miner in Python, however we will be working on an open source GPU version as well. Please consult [our resources](/mine/) if you are interested in mining.
 
-1. `$ git clone https://github.com/snissn/ethereum-cpu-miner.git`
-1. `$ pip3 install -r requirements.txt`
-1. `$ sh run.sh`
+`$> git clone https://github.com/snissn/ethereum-cpu-miner.git`
+
+`$> pip3 install -r requirements.txt`
+
+`$> sh run.sh`
 
 Make sure to change the `run.sh` to have the `-n` be the number of blocks you want to mine on the testnet. Screenshot below is succesful testnet mine to the author address.
 
@@ -97,9 +103,8 @@ Here is an example of genesis file:
 }
 ```
 
-`$ docker run -p 8545:8545 -v genesis.json:/tmp/genesis.json tmio/besu-keccak --rpc-http-enabled --rpc-http-api=admin,eth,debug,miner,net,txpool,priv,trace,web3 --rpc-http-cors-origins="all"  --miner-enabled --miner-coinbase=fe3b557e8fb62b89f4916b721be55ceb828dbd73 --genesis-file=/tmp/genesis.json`
+### Custom Genesis Example 
+
+`$> docker run -p 8545:8545 -v genesis.json:/tmp/genesis.json tmio/besu-keccak --rpc-http-enabled --rpc-http-api=admin,eth,debug,miner,net,txpool,priv,trace,web3 --rpc-http-cors-origins="all"  --miner-enabled --miner-coinbase=fe3b557e8fb62b89f4916b721be55ceb828dbd73 --genesis-file=/tmp/genesis.json`
 
 ![](/success.png)
-
-
-![Network](/network.gif)
