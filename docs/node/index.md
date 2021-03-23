@@ -2,6 +2,14 @@
 title: Node
 lang: en-US
 ---
+## Running with the Astor testnet
+
+The one liner:
+
+`$> docker run -it hyperledger/besu:21.1.2 --network=astor`
+
+For more options, like opening RPC ports and more, refer to the [Besu documentation](https://besu.hyperledger.org/en/stable/HowTo/Get-Started/Starting-node/).
+
 ## Running locally
 
 ### With Docker
@@ -9,7 +17,7 @@ lang: en-US
 We are making available a simple Docker-based set up with Hyperledger Besu so you can try out locally Keccak mining.
 The local network has a very small fixed difficulty as well so you can easily produce blocks on your machine with CPU mining.
 
-`$> docker run -p 8545:8545 tmio/besu-keccak --rpc-http-enabled --rpc-http-api=admin,eth,debug,miner,net,txpool,priv,trace,web3 --rpc-http-cors-origins="all" --network=ecip1049_dev --miner-enabled --miner-coinbase=fe3b557e8fb62b89f4916b721be55ceb828dbd73`
+`$> docker run -p 8545:8545 hyperledger/besu:21.1.2 --rpc-http-enabled --rpc-http-api=admin,eth,debug,miner,net,txpool,priv,trace,web3 --rpc-http-cors-origins="all" --network=ecip1049_dev --miner-enabled --miner-coinbase=fe3b557e8fb62b89f4916b721be55ceb828dbd73`
 
 ### With Docker Compose
 
@@ -35,7 +43,7 @@ If you would like to mine on the network, you will need to install a miner to co
 
 You will need to enable Besu's stratum mining as well:
 
-1. `$> docker run -p 8545:8545 tmio/besu-keccak --rpc-http-enabled --rpc-http-api=admin,eth,debug,miner,net,txpool,priv,trace,web3 --rpc-http-cors-origins="all" --network=ecip1049_dev --miner-enabled --miner-coinbase=fe3b557e8fb62b89f4916b721be55ceb828dbd73
+1. `$> docker run -p 8545:8545 hyperledger/besu:21.1.2 --rpc-http-enabled --rpc-http-api=admin,eth,debug,miner,net,txpool,priv,trace,web3 --rpc-http-cors-origins="all" --network=ecip1049_dev --miner-enabled --miner-coinbase=fe3b557e8fb62b89f4916b721be55ceb828dbd73
   --miner-stratum-enabled --miner-stratum-host=0.0.0.0`
 
 
@@ -105,6 +113,6 @@ Here is an example of genesis file:
 
 ### Custom Genesis Example 
 
-`$> docker run -p 8545:8545 -v genesis.json:/tmp/genesis.json tmio/besu-keccak --rpc-http-enabled --rpc-http-api=admin,eth,debug,miner,net,txpool,priv,trace,web3 --rpc-http-cors-origins="all"  --miner-enabled --miner-coinbase=fe3b557e8fb62b89f4916b721be55ceb828dbd73 --genesis-file=/tmp/genesis.json`
+`$> docker run -p 8545:8545 -v genesis.json:/tmp/genesis.json hyperledger/besu:21.1.2 --rpc-http-enabled --rpc-http-api=admin,eth,debug,miner,net,txpool,priv,trace,web3 --rpc-http-cors-origins="all"  --miner-enabled --miner-coinbase=fe3b557e8fb62b89f4916b721be55ceb828dbd73 --genesis-file=/tmp/genesis.json`
 
 ![](/success.png)
