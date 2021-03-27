@@ -1,7 +1,7 @@
 version: "3"
 services:
   besu:
-    image: "tmio/besu-keccak:latest"
+    image: "hyperledger/besu:21.1.2"
     container_name: "besu"
     ports:
       - 8545:8545
