@@ -1,0 +1,7 @@
+wallet
+data/caches
+data/DATABASE_METADATA.json
+data/database/
+data/key
+data/besu.ports
+data/besu.networks
